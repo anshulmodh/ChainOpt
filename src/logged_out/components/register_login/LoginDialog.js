@@ -65,7 +65,7 @@ function LoginDialog(props) {
       }, 1500);
     } else {
       setTimeout(() => {
-        history.push("/c/subscription");
+        history.push("/c/models");
       }, 150);
     }
   }, [setIsLoading, loginEmail, loginPassword, history, setStatus]);

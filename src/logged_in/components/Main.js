@@ -231,8 +231,8 @@ function Main(props) {
 
   const selectDashboard = useCallback(() => {
     smoothScrollTop();
-    document.title = "WaVer - Dashboard";
-    setSelectedTab("Dashboard");
+    document.title = "ChainOpt - Metrics";
+    setSelectedTab("metrics");
     if (!hasFetchedCardChart) {
       setHasFetchedCardChart(true);
       import("../../shared/components/CardChart").then((Component) => {
@@ -248,7 +248,7 @@ function Main(props) {
 
   const selectPosts = useCallback(() => {
     smoothScrollTop();
-    document.title = "WaVer - Posts";
+    document.title = "ChainOpt - Posts";
     setSelectedTab("Posts");
     if (!hasFetchedEmojiTextArea) {
       setHasFetchedEmojiTextArea(true);
@@ -292,8 +292,8 @@ function Main(props) {
 
   const selectSubscription = useCallback(() => {
     smoothScrollTop();
-    document.title = "WaVer - Subscription";
-    setSelectedTab("Subscription");
+    document.title = "ChainOpt - Models";
+    setSelectedTab("models");
   }, [setSelectedTab]);
 
   const getPushMessageFromChild = useCallback(

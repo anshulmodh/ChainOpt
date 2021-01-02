@@ -80,7 +80,7 @@ function Routing(props) {
           selectPosts={selectPosts}
         />
         <PropsRoute
-          path="/c/subscription"
+          path="/c/models"
           component={Subscription}
           transactions={transactions}
           pushMessageToSnackbar={pushMessageToSnackbar}
