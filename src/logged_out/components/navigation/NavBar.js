@@ -11,20 +11,23 @@ import {
   withStyles
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import HomeIcon from "@material-ui/icons/Home";
 import HowToRegIcon from "@material-ui/icons/HowToReg";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
-import BookIcon from "@material-ui/icons/Book";
 import NavigationDrawer from "../../../shared/components/NavigationDrawer";
+import Logo from '../../../assets/small_logo.svg';
 
 const styles = theme => ({
   appBar: {
     boxShadow: theme.shadows[6],
-    backgroundColor: theme.palette.common.white
+    backgroundColor: theme.palette.common.black
   },
   toolbar: {
     display: "flex",
     justifyContent: "space-between"
+  },
+  toolBarText: {
+    display: 'flex',
+    alignItems: 'center'
   },
   menuButtonText: {
     fontSize: theme.typography.body1.fontSize,
@@ -51,16 +54,6 @@ function NavBar(props) {
   } = props;
   const menuItems = [
     {
-      link: "/",
-      name: "Home",
-      icon: <HomeIcon className="text-white" />
-    },
-    {
-      link: "/blog",
-      name: "Blog",
-      icon: <BookIcon className="text-white" />
-    },
-    {
       name: "Register",
       onClick: openRegisterDialog,
       icon: <HowToRegIcon className="text-white" />
@@ -75,14 +68,24 @@ function NavBar(props) {
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar className={classes.toolbar}>
-          <div>
+          <div className={classes.toolBarText}>
+          <Link
+            key="home"
+            to="/"
+            className={classes.noDecoration}
+            // onClick={handleMobileDrawerClose}
+          >
+            <IconButton>
+              <img src={Logo} height="30px" alt=""></img>
+            </IconButton>
+          </Link>
             <Typography
               variant="h4"
               className={classes.brandText}
               display="inline"
               color="primary"
             >
-              Wa
+              Chain
             </Typography>
             <Typography
               variant="h4"
@@ -90,7 +93,7 @@ function NavBar(props) {
               display="inline"
               color="secondary"
             >
-              Ver
+              Opt
             </Typography>
           </div>
           <div>
