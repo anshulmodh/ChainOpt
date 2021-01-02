@@ -6,7 +6,6 @@ import {
   AppBar,
   Toolbar,
   Typography,
-  Avatar,
   Drawer,
   List,
   IconButton,
@@ -25,16 +24,15 @@ import ImageIcon from "@material-ui/icons/Image";
 import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import MenuIcon from "@material-ui/icons/Menu";
-import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
-import MessagePopperButton from "./MessagePopperButton";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SideDrawer from "./SideDrawer";
-import Balance from "./Balance";
 import NavigationDrawer from "../../../shared/components/NavigationDrawer";
+import Logo from '../../../assets/small_logo.svg';
 
 const styles = (theme) => ({
   appBar: {
     boxShadow: theme.shadows[6],
-    backgroundColor: theme.palette.common.white,
+    backgroundColor: theme.palette.common.black,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
@@ -81,7 +79,7 @@ const styles = (theme) => ({
     overflowX: "hidden",
     marginTop: theme.spacing(8),
     [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9),
+      width: theme.spacing(13 ),
     },
     backgroundColor: theme.palette.common.black,
   },
@@ -127,7 +125,7 @@ const styles = (theme) => ({
 });
 
 function NavBar(props) {
-  const { selectedTab, messages, classes, width, openAddBalanceDialog } = props;
+  const { selectedTab, classes, width } = props;
   // Will be use to make website more accessible by screen readers
   const links = useRef([]);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
@@ -151,65 +149,65 @@ function NavBar(props) {
 
   const menuItems = [
     {
-      link: "/c/dashboard",
-      name: "Dashboard",
-      onClick: closeMobileDrawer,
-      icon: {
-        desktop: (
-          <DashboardIcon
-            className={
-              selectedTab === "Dashboard" ? classes.textPrimary : "text-white"
-            }
-            fontSize="small"
-          />
-        ),
-        mobile: <DashboardIcon className="text-white" />,
-      },
-    },
-    {
-      link: "/c/posts",
-      name: "Posts",
-      onClick: closeMobileDrawer,
-      icon: {
-        desktop: (
-          <ImageIcon
-            className={
-              selectedTab === "Posts" ? classes.textPrimary : "text-white"
-            }
-            fontSize="small"
-          />
-        ),
-        mobile: <ImageIcon className="text-white" />,
-      },
-    },
-    {
       link: "/c/subscription",
-      name: "Subscription",
+      name: "Models",
       onClick: closeMobileDrawer,
-      icon: {
-        desktop: (
-          <AccountBalanceIcon
-            className={
-              selectedTab === "Subscription"
-                ? classes.textPrimary
-                : "text-white"
-            }
-            fontSize="small"
-          />
-        ),
-        mobile: <AccountBalanceIcon className="text-white" />,
-      },
+      // icon: {
+      //   desktop: (
+      //     <DashboardIcon
+      //       className={
+      //         selectedTab === "Dashboard" ? classes.textPrimary : "text-white"
+      //       }
+      //       fontSize="small"
+      //     />
+      //   ),
+      //   mobile: <DashboardIcon className="text-white" />,
+      // },
     },
+    // {
+    //   link: "/c/posts",
+    //   name: "Posts",
+    //   onClick: closeMobileDrawer,
+    //   icon: {
+    //     desktop: (
+    //       <ImageIcon
+    //         className={
+    //           selectedTab === "Posts" ? classes.textPrimary : "text-white"
+    //         }
+    //         fontSize="small"
+    //       />
+    //     ),
+    //     mobile: <ImageIcon className="text-white" />,
+    //   },
+    // },
     {
-      link: "/",
-      name: "Logout",
-      icon: {
-        desktop: (
-          <PowerSettingsNewIcon className="text-white" fontSize="small" />
-        ),
-        mobile: <PowerSettingsNewIcon className="text-white" />,
-      },
+      link: "/c/dashboard",
+      name: "Metrics",
+      onClick: closeMobileDrawer,
+      // icon: {
+      //   desktop: (
+      //     <AccountBalanceIcon
+      //       className={
+      //         selectedTab === "Subscription"
+      //           ? classes.textPrimary
+      //           : "text-white"
+      //       }
+      //       fontSize="small"
+      //     />
+      //   ),
+      //   mobile: <AccountBalanceIcon className="text-white" />,
+      //},
     },
+    // {
+    //   link: "/",
+    //   name: "Logout",
+    //   icon: {
+    //     desktop: (
+    //       <PowerSettingsNewIcon className="text-white" fontSize="small" />
+    //     ),
+    //     mobile: <PowerSettingsNewIcon className="text-white" />,
+    //   },
+    // },
   ];
   return (
     <Fragment>
@@ -228,6 +226,16 @@ function NavBar(props) {
               </Box>
             </Hidden>
             <Hidden xsDown>
+              <Link
+                key="home"
+                to="/"
+                // className={classes.noDecoration}
+                // onClick={handleMobileDrawerClose}
+                >
+                  <IconButton>
+                  <img src={Logo} height="30px" alt=""></img>
+                  </IconButton>
+              </Link>
               <Typography
                 variant="h4"
                 className={classes.brandText}
@@ -252,29 +260,15 @@ function NavBar(props) {
             alignItems="center"
             width="100%"
           >
-            {isWidthUp("sm", width) && (
-              <Box mr={3}>
-                <Balance
-                  balance={2573}
-                  openAddBalanceDialog={openAddBalanceDialog}
-                />
-              </Box>
-            )}
-            <MessagePopperButton messages={messages} />
             <ListItem
               disableGutters
               className={classNames(classes.iconListItem, classes.smBordered)}
             >
-              <Avatar
-                alt="profile picture"
-                src={`${process.env.PUBLIC_URL}/images/logged_in/profilePicture.jpg`}
-                className={classNames(classes.accountAvatar)}
-              />
               {isWidthUp("sm", width) && (
                 <ListItemText
                   className={classes.username}
                   primary={
-                    <Typography color="textPrimary">Username</Typography>
+                    <Typography color="secondary">Username</Typography>
                   }
                 />
               )}
@@ -285,9 +279,9 @@ function NavBar(props) {
             color="primary"
             aria-label="Open Sidedrawer"
           >
-            <SupervisorAccountIcon />
+            <AccountCircleIcon />
           </IconButton>
-          <SideDrawer open={isSideDrawerOpen} onClose={closeDrawer} />
+          <SideDrawer selectedTab={selectedTab} open={isSideDrawerOpen} onClose={closeDrawer} />
         </Toolbar>
       </AppBar>
       <Hidden xsDown>
@@ -328,9 +322,16 @@ function NavBar(props) {
                         : `Go to ${element.name}`
                     }
                   >
-                    <ListItemIcon className={classes.justifyCenter}>
+                    <ListItemText
+                    primary={
+                      <Typography variant="subtitle1" className="text-white" align="center">
+                        {element.name}
+                      </Typography>
+                    }
+                  />
+                    {/* <ListItemIcon className={classes.justifyCenter}>
                       {element.icon.desktop}
-                    </ListItemIcon>
+                    </ListItemIcon> */}
                   </ListItem>
                 </Tooltip>
               </Link>
@@ -342,7 +343,6 @@ function NavBar(props) {
         menuItems={menuItems.map((element) => ({
           link: element.link,
           name: element.name,
-          icon: element.icon.mobile,
           onClick: element.onClick,
         }))}
         anchor="left"

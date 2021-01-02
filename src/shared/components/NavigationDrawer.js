@@ -91,7 +91,7 @@ function NavigationDrawer(props) {
                   disableRipple
                   disableTouchRipple
                 >
-                  <ListItemIcon>{element.icon}</ListItemIcon>
+                  {/* <ListItemIcon>{element.icon}</ListItemIcon> */}
                   <ListItemText
                     primary={
                       <Typography variant="subtitle1" className="text-white">
