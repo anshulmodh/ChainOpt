@@ -152,62 +152,12 @@ function NavBar(props) {
       link: "/c/models",
       name: "Models",
       onClick: closeMobileDrawer,
-      // icon: {
-      //   desktop: (
-      //     <DashboardIcon
-      //       className={
-      //         selectedTab === "Dashboard" ? classes.textPrimary : "text-white"
-      //       }
-      //       fontSize="small"
-      //     />
-      //   ),
-      //   mobile: <DashboardIcon className="text-white" />,
-      // },
     },
-    // {
-    //   link: "/c/posts",
-    //   name: "Posts",
-    //   onClick: closeMobileDrawer,
-    //   icon: {
-    //     desktop: (
-    //       <ImageIcon
-    //         className={
-    //           selectedTab === "Posts" ? classes.textPrimary : "text-white"
-    //         }
-    //         fontSize="small"
-    //       />
-    //     ),
-    //     mobile: <ImageIcon className="text-white" />,
-    //   },
-    // },
     {
       link: "/c/metrics",
       name: "Metrics",
       onClick: closeMobileDrawer,
-      // icon: {
-      //   desktop: (
-      //     <AccountBalanceIcon
-      //       className={
-      //         selectedTab === "Subscription"
-      //           ? classes.textPrimary
-      //           : "text-white"
-      //       }
-      //       fontSize="small"
-      //     />
-      //   ),
-      //   mobile: <AccountBalanceIcon className="text-white" />,
-      //},
     },
-    // {
-    //   link: "/",
-    //   name: "Logout",
-    //   icon: {
-    //     desktop: (
-    //       <PowerSettingsNewIcon className="text-white" fontSize="small" />
-    //     ),
-    //     mobile: <PowerSettingsNewIcon className="text-white" />,
-    //   },
-    // },
   ];
   return (
     <Fragment>

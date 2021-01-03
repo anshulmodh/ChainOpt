@@ -34,7 +34,7 @@ const styles = theme => ({
     fontWeight: theme.typography.h6.fontWeight
   },
   brandText: {
-    fontFamily: "'Baloo Bhaijaan', cursive",
+    fontFamily: "Vagabond",
     fontWeight: 400
   },
   noDecoration: {
@@ -54,13 +54,8 @@ function NavBar(props) {
   } = props;
   const menuItems = [
     {
-      name: "Register",
-      onClick: openRegisterDialog,
-      icon: <HowToRegIcon className="text-white" />
-    },
-    {
       name: "Login",
-      onClick: openLoginDialog,
+      link: "/c",
       icon: <LockOpenIcon className="text-white" />
     }
   ];
@@ -80,7 +75,7 @@ function NavBar(props) {
             </IconButton>
           </Link>
             <Typography
-              variant="h4"
+              variant="h3"
               className={classes.brandText}
               display="inline"
               color="primary"
@@ -88,7 +83,7 @@ function NavBar(props) {
               Chain
             </Typography>
             <Typography
-              variant="h4"
+              variant="h3"
               className={classes.brandText}
               display="inline"
               color="secondary"
