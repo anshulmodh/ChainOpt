@@ -28,6 +28,7 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SideDrawer from "./SideDrawer";
 import NavigationDrawer from "../../../shared/components/NavigationDrawer";
 import Logo from '../../../assets/small_logo.svg';
+// import { useReactOidc } from '@axa-fr/react-oidc-context';
 
 const styles = (theme) => ({
   appBar: {
@@ -125,11 +126,16 @@ const styles = (theme) => ({
 });
 
 function NavBar(props) {
-  const { selectedTab, classes, width } = props;
+  const { selectedTab, classes, width, user } = props;
   // Will be use to make website more accessible by screen readers
   const links = useRef([]);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false);
+  // const { oidcUser, logout, events } = useReactOidc();
+  // const { profile } = oidcUser;
+  // const [user, setUser] = React.useState();
+
+  // console.log(Object.keys(user))
 
   const openMobileDrawer = useCallback(() => {
     setIsMobileOpen(true);
@@ -218,7 +224,8 @@ function NavBar(props) {
                 <ListItemText
                   className={classes.username}
                   primary={
-                    <Typography color="secondary">Username</Typography>
+                    // <Typography color="secondary">{profile.username}</Typography>
+                    <Typography color="secondary">{user.username}</Typography>
                   }
                 />
               )}

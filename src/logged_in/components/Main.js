@@ -8,6 +8,9 @@ import ConsecutiveSnackbarMessages from "../../shared/components/ConsecutiveSnac
 import smoothScrollTop from "../../shared/functions/smoothScrollTop";
 import persons from "../dummy_data/persons";
 import LazyLoadAddBalanceDialog from "./subscription/LazyLoadAddBalanceDialog";
+import { AmplifyAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
+import { AuthState, onAuthUIStateChange } from '@aws-amplify/ui-components';
+import Amplify, { Auth, Hub, API } from 'aws-amplify'
 
 const styles = (theme) => ({
   main: {
@@ -29,8 +32,21 @@ function shuffle(array) {
   }
 }
 
+async function signIn() {
+  Auth.federatedSignIn().then(cred => {
+      // If success, you will get the AWS credentials
+      console.log(cred);
+      return Auth.currentAuthenticatedUser();
+  }).then(user => {
+      // If success, the user object you passed in Auth.federatedSignIn
+      console.log(user);
+  }).catch(e => {
+      console.log(e)
+  });
+}
+
 function Main(props) {
-  const { classes } = props;
+  const { classes, user, setUser } = props;
   const [selectedTab, setSelectedTab] = useState(null);
   const [CardChart, setCardChart] = useState(null);
   const [hasFetchedCardChart, setHasFetchedCardChart] = useState(false);
@@ -52,6 +68,21 @@ function Main(props) {
   const [isAccountActivated, setIsAccountActivated] = useState(false);
   const [isAddBalanceDialogOpen, setIsAddBalanceDialogOpen] = useState(false);
   const [pushMessageToSnackbar, setPushMessageToSnackbar] = useState(null);
+  // Auth.currentAuthenticatedUser().then(user => {
+  //   console.log('currentAuthenticatedUser', user)
+  //   this.setState({ user})
+  // }).catch(() => console.log('Not signed in'))
+  // const { user } = Auth.currentAuthenticatedUser();
+
+  // const [authState, setAuthState] = React.useState();
+  // const [user, setUser] = React.useState();
+
+  // React.useEffect(() => {
+  //     onAuthUIStateChange((nextAuthState, authData) => {
+  //         setAuthState(nextAuthState);
+  //         setUser(authData)
+  //     });
+  // }, []);
 
   const fetchRandomTargets = useCallback(() => {
     const targets = [];
@@ -317,7 +348,17 @@ function Main(props) {
     fetchRandomPosts,
   ]);
 
-  return (
+  // Auth.currentAuthenticatedUser().then(cur => {
+  //   console.log('currentAuthenticatedUser', cur)
+  //   setUser(cur)
+
+  // }).catch(() =>  console.log("not signed in"))
+
+  // if(!user) {
+  //   console.log("nope")
+  // }
+
+  return user ? (
     <Fragment>
       <LazyLoadAddBalanceDialog
         open={isAddBalanceDialogOpen}
@@ -328,6 +369,7 @@ function Main(props) {
         selectedTab={selectedTab}
         messages={messages}
         openAddBalanceDialog={openAddBalanceDialog}
+        user={user}
       />
       <ConsecutiveSnackbarMessages
         getPushMessageFromChild={getPushMessageFromChild}
@@ -355,7 +397,11 @@ function Main(props) {
         />
       </main>
     </Fragment>
-  );
+  ): (
+    <button onClick={signIn}>Log In</button>
+  )
+
+  
 }
 
 Main.propTypes = {

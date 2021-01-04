@@ -15,6 +15,7 @@ import HowToRegIcon from "@material-ui/icons/HowToReg";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import NavigationDrawer from "../../../shared/components/NavigationDrawer";
 import Logo from '../../../assets/small_logo.svg';
+import Amplify, { Auth, Hub, API } from 'aws-amplify'
 
 const styles = theme => ({
   appBar: {
@@ -34,13 +35,26 @@ const styles = theme => ({
     fontWeight: theme.typography.h6.fontWeight
   },
   brandText: {
-    fontFamily: "Vagabond",
+    fontFamily: "'Baloo Bhaijaan', cursive",
     fontWeight: 400
   },
   noDecoration: {
     textDecoration: "none !important"
   }
 });
+
+async function signIn() {
+  Auth.federatedSignIn().then(cred => {
+      // If success, you will get the AWS credentials
+      console.log(cred);
+      return Auth.currentAuthenticatedUser();
+  }).then(user => {
+      // If success, the user object you passed in Auth.federatedSignIn
+      console.log(user);
+  }).catch(e => {
+      console.log(e)
+  });
+}
 
 function NavBar(props) {
   const {
@@ -59,6 +73,7 @@ function NavBar(props) {
       icon: <LockOpenIcon className="text-white" />
     }
   ];
+  
   return (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
@@ -75,7 +90,7 @@ function NavBar(props) {
             </IconButton>
           </Link>
             <Typography
-              variant="h3"
+              variant="h4"
               className={classes.brandText}
               display="inline"
               color="primary"
@@ -83,7 +98,7 @@ function NavBar(props) {
               Chain
             </Typography>
             <Typography
-              variant="h3"
+              variant="h4"
               className={classes.brandText}
               display="inline"
               color="secondary"
@@ -133,6 +148,7 @@ function NavBar(props) {
                   </Button>
                 );
               })}
+              <button onClick={signIn}>Log In</button>
             </Hidden>
           </div>
         </Toolbar>
