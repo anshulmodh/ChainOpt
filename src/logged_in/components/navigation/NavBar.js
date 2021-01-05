@@ -10,7 +10,6 @@ import {
   List,
   IconButton,
   ListItem,
-  ListItemIcon,
   ListItemText,
   Hidden,
   Tooltip,
@@ -19,16 +18,11 @@ import {
   isWidthUp,
   withWidth,
 } from "@material-ui/core";
-import DashboardIcon from "@material-ui/icons/Dashboard";
-import ImageIcon from "@material-ui/icons/Image";
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import SideDrawer from "./SideDrawer";
 import NavigationDrawer from "../../../shared/components/NavigationDrawer";
 import Logo from '../../../assets/small_logo.svg';
-// import { useReactOidc } from '@axa-fr/react-oidc-context';
 
 const styles = (theme) => ({
   appBar: {
@@ -127,15 +121,9 @@ const styles = (theme) => ({
 
 function NavBar(props) {
   const { selectedTab, classes, width, user } = props;
-  // Will be use to make website more accessible by screen readers
   const links = useRef([]);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isSideDrawerOpen, setIsSideDrawerOpen] = useState(false);
-  // const { oidcUser, logout, events } = useReactOidc();
-  // const { profile } = oidcUser;
-  // const [user, setUser] = React.useState();
-
-  // console.log(Object.keys(user))
 
   const openMobileDrawer = useCallback(() => {
     setIsMobileOpen(true);
@@ -286,9 +274,6 @@ function NavBar(props) {
                       </Typography>
                     }
                   />
-                    {/* <ListItemIcon className={classes.justifyCenter}>
-                      {element.icon.desktop}
-                    </ListItemIcon> */}
                   </ListItem>
                 </Tooltip>
               </Link>
@@ -312,11 +297,11 @@ function NavBar(props) {
 }
 
 NavBar.propTypes = {
-  messages: PropTypes.arrayOf(PropTypes.object).isRequired,
+  // messages: PropTypes.arrayOf(PropTypes.object).isRequired,
   selectedTab: PropTypes.string.isRequired,
   width: PropTypes.string.isRequired,
   classes: PropTypes.object.isRequired,
-  openAddBalanceDialog: PropTypes.func.isRequired,
+  // openAddBalanceDialog: PropTypes.func.isRequired,
 };
 
 export default withWidth()(withStyles(styles, { withTheme: true })(NavBar));

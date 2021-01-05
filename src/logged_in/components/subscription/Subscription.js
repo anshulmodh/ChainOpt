@@ -1,8 +1,5 @@
-import React, { useEffect } from "react";
-import PropTypes from "prop-types";
-import { List, Divider, Paper, withStyles } from "@material-ui/core";
-import SubscriptionTable from "./SubscriptionTable";
-import SubscriptionInfo from "./SubscriptionInfo";
+import React from "react";
+import { withStyles } from "@material-ui/core";
 
 const styles = {
   divider: {
@@ -11,31 +8,13 @@ const styles = {
 };
 
 function Subscription(props) {
-  const {
-    transactions,
-    classes,
-    openAddBalanceDialog,
-    selectSubscription
-  } = props;
-
-  useEffect(selectSubscription, [selectSubscription]);
 
   return (
-    <Paper>
-      <List disablePadding>
-        <SubscriptionInfo openAddBalanceDialog={openAddBalanceDialog} />
-        <Divider className={classes.divider} />
-        <SubscriptionTable transactions={transactions} />
-      </List>
-    </Paper>
+    <h1>Models</h1>
   );
 }
 
 Subscription.propTypes = {
-  classes: PropTypes.object.isRequired,
-  transactions: PropTypes.arrayOf(PropTypes.object).isRequired,
-  selectSubscription: PropTypes.func.isRequired,
-  openAddBalanceDialog: PropTypes.func.isRequired
 };
 
 export default withStyles(styles)(Subscription);

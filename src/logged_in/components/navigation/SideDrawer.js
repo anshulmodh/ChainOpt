@@ -16,10 +16,7 @@ import {
 } from "@material-ui/core";
 import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import CloseIcon from "@material-ui/icons/Close";
-import { AmplifySignOut } from '@aws-amplify/ui-react';
-import Amplify, { Auth, Hub, API } from 'aws-amplify'
-// import { useReactOidc } from '@axa-fr/react-oidc-context';
-// import oidcConfiguration from './configuration';
+import { Auth } from 'aws-amplify'
 
 const drawerWidth = 240;
 
@@ -39,17 +36,8 @@ const styles = (theme) => ({
 });
 
 function signOut() {
-  // console.log(Auth.currentAuthenticatedUser())
   try {
-      console.log(Auth.signOut());
-  } catch (error) {
-      console.log('error signing out: ', error);
-  }
-}
-
-async function globalSignOut() {
-  try {
-      await Auth.signOut({ global: true });
+      Auth.signOut();
   } catch (error) {
       console.log('error signing out: ', error);
   }
@@ -57,33 +45,18 @@ async function globalSignOut() {
 
 function SideDrawer(props) {
   const { selectedTab, classes, onClose, open } = props;
-  // const { oidcUser, logout, events } = useReactOidc();
   const links = useRef([]);
-  // const addUserEvent = user => console.log(`********* User Loaded :${user.profile} *********`);
-
-  // const logoutCognito = () => {
-  //   var url = "https://chainopt-dev.auth.us-east-1.amazoncognito.com/logout?client_id=153nh5kdekmb7e8vn9330ii7c9&logout_uri=http%3A%2F%2Flocalhost%3A3000%2F";
-
-  // }
-
-  // React.useEffect(() => {
-  //   events.addUserLoaded(addUserEvent);
-  //   return () => {
-  //     events.removeUserLoaded(addUserEvent);
-  //   };
-  // });
   const menuItems = [
-    // {
-    //   link: "/",
-    //   name: "Logout",
-    //   icon: {
-    //     desktop: (
-    //       <PowerSettingsNewIcon className="text-white" fontSize="small" />
-    //     ),
-    //     mobile: <PowerSettingsNewIcon className="text-white" />,
-    //   },
-    //   // onClick: logoutCognito,
-    // },
+    {
+      name: "Logout",
+      icon: {
+        desktop: (
+          <PowerSettingsNewIcon className="text-white" fontSize="small" />
+        ),
+        mobile: <PowerSettingsNewIcon className="text-white" />,
+      },
+      onClick: signOut,
+    }
   ];
 
   return (
@@ -109,8 +82,39 @@ function SideDrawer(props) {
       </Toolbar>
       <Divider />
       <List>
-        {menuItems.map((element, index) => (
-          <Link
+        {menuItems.map((element, index) => {
+           if (!element.link) {
+             return (
+              <Tooltip
+              title={element.name}
+              placement="right"
+              key={index}
+            >
+              <ListItem
+                selected={selectedTab === element.name}
+                button
+                divider={index !== menuItems.length - 1}
+                className={classes.permanentDrawerListItem}
+                onClick={element.onClick}
+                aria-label={
+                  element.name === "Logout"
+                    ? "Logout"
+                    : `Go to ${element.name}`
+                }
+              >
+                <ListItemText
+                primary={
+                  <Typography variant="subtitle1" color="secondary" align="center">
+                    {element.name}
+                  </Typography>
+                }
+              />
+              </ListItem>
+            </Tooltip>
+             );
+           }
+           return (
+            <Link
             to={element.link}
             className={classes.menuLink}
             onClick={element.onClick}
@@ -145,21 +149,13 @@ function SideDrawer(props) {
                   </Typography>
                 }
               />
-                {/* <ListItemIcon className={classes.justifyCenter}>
-                  {element.icon.desktop}
-                </ListItemIcon> */}
               </ListItem>
             </Tooltip>
           </Link>
-        ))}
+           );
+        }
+        )}
       </List>
-      {/* <Link to="/"> */}
-        <button onClick={signOut}>logout</button>
-        <button onClick={globalSignOut}>global logout</button>
-      {/* </Link> */}
-      {/* <Link to="/">
-        <AmplifySignOut />
-      </Link> */}
     </Drawer>
   );
 }
@@ -170,5 +166,3 @@ SideDrawer.propTypes = {
   onClose: PropTypes.func.isRequired
 };
 export default (withStyles(styles, { withTheme: true })(SideDrawer));
-
-// export default withStyles(styles)(SideDrawer);

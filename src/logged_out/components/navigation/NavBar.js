@@ -11,11 +11,11 @@ import {
   withStyles
 } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
-import HowToRegIcon from "@material-ui/icons/HowToReg";
+// import HowToRegIcon from "@material-ui/icons/HowToReg";
 import LockOpenIcon from "@material-ui/icons/LockOpen";
 import NavigationDrawer from "../../../shared/components/NavigationDrawer";
 import Logo from '../../../assets/small_logo.svg';
-import Amplify, { Auth, Hub, API } from 'aws-amplify'
+import { Auth } from 'aws-amplify'
 
 const styles = theme => ({
   appBar: {
@@ -59,8 +59,6 @@ async function signIn() {
 function NavBar(props) {
   const {
     classes,
-    openRegisterDialog,
-    openLoginDialog,
     handleMobileDrawerOpen,
     handleMobileDrawerClose,
     mobileDrawerOpen,
@@ -69,8 +67,8 @@ function NavBar(props) {
   const menuItems = [
     {
       name: "Login",
-      link: "/c",
-      icon: <LockOpenIcon className="text-white" />
+      icon: <LockOpenIcon className="text-white" />,
+      onClick: signIn,
     }
   ];
   
@@ -148,7 +146,6 @@ function NavBar(props) {
                   </Button>
                 );
               })}
-              <button onClick={signIn}>Log In</button>
             </Hidden>
           </div>
         </Toolbar>
@@ -170,8 +167,6 @@ NavBar.propTypes = {
   handleMobileDrawerClose: PropTypes.func,
   mobileDrawerOpen: PropTypes.bool,
   selectedTab: PropTypes.string,
-  openRegisterDialog: PropTypes.func.isRequired,
-  openLoginDialog: PropTypes.func.isRequired
 };
 
 export default withStyles(styles, { withTheme: true })(memo(NavBar));

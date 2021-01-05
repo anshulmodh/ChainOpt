@@ -1,9 +1,9 @@
 {
-  "name": "react-saas-template",
+  "name": "ChainOpt",
   "version": "1.0.0",
   "private": true,
   "homepage": "",
-  "description": "Template for building an SaaS/admin application using React + Material-UI",
+  "description": "ChainOpt",
   "dependencies": {
     "@aws-amplify/ui-react": "^0.2.33",
     "@axa-fr/react-oidc-context": "^3.1.6",
