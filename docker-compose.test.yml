@@ -1,0 +1,9 @@
+version: "3.4"
+services:
+    sut:
+        build:
+            context: .
+        image: mmodhopt/maas:sample-test
+        volumes:
+            - ./:/app
+        command: npm test
